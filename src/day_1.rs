@@ -1,7 +1,4 @@
-use std::fs::File;
-use std::io::BufReader;
-use std::io::prelude::*;
-use std::path::Path;
+use crate::helpers;
 
 pub fn solve_part(part: u8) -> u16 {
     let inputs: Vec<u16>;
@@ -41,16 +38,9 @@ fn get_part_2_inputs() -> Vec<u16> {
 }
 
 fn get_raw_inputs() -> Vec<u16> {
-    let inputs_file_path = Path::new("src/inputs/1.txt");
-    let file = match File::open(&inputs_file_path) {
-        Err(_) => panic!("Failed to open inputs file"),
-        Ok(file) => file,
-    };
-
-    let reader = BufReader::new(file);
-
-    reader.lines()
-        .map(|line| line.unwrap().parse::<u16>()
+    helpers::read_inputs_file(1)
+        .into_iter()
+        .map(|input| input.parse::<u16>()
         .unwrap())
         .collect()
 }
