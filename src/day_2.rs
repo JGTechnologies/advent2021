@@ -83,6 +83,6 @@ fn get_part_2_position(commands: Vec<Command>) -> Position {
 fn get_commands() -> Vec<Command> {
     helpers::read_inputs_file(2)
         .into_iter()
-        .map(|line| Command::new(line))
+        .map(|input| Command::new(input))
         .collect()
 }
