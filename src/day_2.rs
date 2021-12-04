@@ -21,19 +21,11 @@ struct Position {
     distance: u32,
 }
 
-pub fn solve_part(part: u8) -> u32 {
-    let commands = get_commands();
-    let position: Position;
-
-    if part == 1 {
-        position = get_part_1_position(commands);
-    } else if part == 2 {
-        position = get_part_2_position(commands);
-    } else {
-        panic!("Invalid part number");
-    }
-
-    position.distance * position.depth
+fn get_commands() -> Vec<Command> {
+    helpers::read_inputs_file(2)
+        .into_iter()
+        .map(|input| Command::new(input))
+        .collect()
 }
 
 fn get_part_1_position(commands: Vec<Command>) -> Position {
@@ -80,9 +72,19 @@ fn get_part_2_position(commands: Vec<Command>) -> Position {
     position
 }
 
-fn get_commands() -> Vec<Command> {
-    helpers::read_inputs_file(2)
-        .into_iter()
-        .map(|input| Command::new(input))
-        .collect()
+pub fn solve_part(part: u8) -> u32 {
+    if part == 0 || part > 2 {
+        panic!("Invalid part number");
+    }
+
+    let commands = get_commands();
+    let position: Position;
+
+    if part == 1 {
+        position = get_part_1_position(commands);
+    } else {
+        position = get_part_2_position(commands);
+    }
+
+    position.distance * position.depth
 }
