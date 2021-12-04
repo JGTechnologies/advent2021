@@ -86,7 +86,7 @@ impl Board {
     }
 }
 
-fn get_boards(inputs: &Vec<String>) -> Vec<Board> {
+fn get_boards(inputs: Vec<String>) -> Vec<Board> {
     let mut boards: Vec<Board> = Vec::new();
     let mut i = 0;
 
@@ -155,7 +155,7 @@ pub fn solve_part(part: u8) -> u16 {
     inputs.remove(0);
     inputs.remove(0);
 
-    let mut boards: Vec<Board> = get_boards(&inputs);
+    let mut boards: Vec<Board> = get_boards(inputs);
 
     for call in calls {
         for i in 0..boards.len() {

@@ -1,22 +1,5 @@
 use crate::helpers;
 
-pub fn solve_part(part: u8) -> u64 {
-    let inputs = get_inputs();
-    let most_common_bitmask = get_most_common_bitmask(&inputs);
-    let flipped_bitmask = flip_all_bits(&most_common_bitmask);
-
-    if part == 1 {
-        most_common_bitmask as u64 * flipped_bitmask as u64
-    } else if part == 2 {
-        let o2 = find_first_input_meeting_mask(&inputs, &most_common_bitmask, 11, false);
-        let co2_scrubber = find_first_input_meeting_mask(&inputs, &flipped_bitmask, 11, true);
-
-        o2 * co2_scrubber
-    } else {
-        panic!("Invalid part number");
-    }
-}
-
 fn find_first_input_meeting_mask(inputs: &Vec<u16>, mask: &u16, step: usize, invert_bitmask: bool) -> u64 {
     let mut next_inputs: Vec<u16> = Vec::new();
     let target_bit = mask & (1 << step) > 0;
@@ -81,4 +64,23 @@ fn get_most_common_bitmask(inputs: &Vec<u16>) -> u16 {
     }
 
     bitmask
+}
+
+pub fn solve_part(part: u8) -> u64 {
+    if part == 0 || part > 2 {
+        panic!("Invalid part number");
+    }
+
+    let inputs = get_inputs();
+    let most_common_bitmask = get_most_common_bitmask(&inputs);
+    let flipped_bitmask = flip_all_bits(&most_common_bitmask);
+
+    if part == 1 {
+        most_common_bitmask as u64 * flipped_bitmask as u64
+    } else {
+        let o2 = find_first_input_meeting_mask(&inputs, &most_common_bitmask, 11, false);
+        let co2_scrubber = find_first_input_meeting_mask(&inputs, &flipped_bitmask, 11, true);
+
+        o2 * co2_scrubber
+    }
 }

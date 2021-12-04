@@ -1,5 +1,25 @@
 use crate::helpers;
 
+fn get_part_2_inputs() -> Vec<u16> {
+    let mut inputs: Vec<u16> = Vec::new();
+    let raw_inputs = get_raw_inputs();
+
+    for i in 0..raw_inputs.len() - 2 {
+        let sum = raw_inputs[i] + raw_inputs[i + 1] + raw_inputs[i + 2];
+        inputs.push(sum);
+    }
+
+    inputs
+}
+
+fn get_raw_inputs() -> Vec<u16> {
+    helpers::read_inputs_file(1)
+        .into_iter()
+        .map(|input| input.parse::<u16>()
+        .unwrap())
+        .collect()
+}
+
 pub fn solve_part(part: u8) -> u16 {
     let inputs: Vec<u16>;
 
@@ -23,24 +43,4 @@ pub fn solve_part(part: u8) -> u16 {
     }
 
     counter
-}
-
-fn get_part_2_inputs() -> Vec<u16> {
-    let mut inputs: Vec<u16> = Vec::new();
-    let raw_inputs = get_raw_inputs();
-
-    for i in 0..raw_inputs.len() - 2 {
-        let sum = raw_inputs[i] + raw_inputs[i + 1] + raw_inputs[i + 2];
-        inputs.push(sum);
-    }
-
-    inputs
-}
-
-fn get_raw_inputs() -> Vec<u16> {
-    helpers::read_inputs_file(1)
-        .into_iter()
-        .map(|input| input.parse::<u16>()
-        .unwrap())
-        .collect()
 }
